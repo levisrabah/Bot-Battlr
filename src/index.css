@@ -12,56 +12,33 @@ body {
   overflow-x: scroll;
   min-height: 300px;
   max-width: 100%;
-}
-
-.ui.grid > .row.bot-army-row {
-  flex-wrap: nowrap;
-  min-height: 100%;
-}
-
-.ui.grid {
-  padding: 0px 20px;
-}
-.bot-card {
-  display: inline-block;
-  margin: 10px;
-  background-color: black;
-  border-radius: 10px;
-  padding: 20px;
-  width: 200px; 
-}
-
-.bot-card .image {
-  text-align: center;
-}
-
-.bot-card .image img {
-  width: 100px; 
-  border-radius: 50%;
-}
-
-.bot-card .content {
-  margin-top: 10px;
-}
-
-.bot-card .content .description-box {
-  background-color: white;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.bot-card .content .description-box p {
-  margin: 0;
-}
-
-
-.bot-army {
-  display: flex;
-  justify-content: center;
+  background-color: greenyellow;
 }
 
 .bot-army .bot-army-row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+.ui.card {
+  background-color: lightgray;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px; 
+  margin: 10px;
+  height: auto;
+}
+.bot-collection {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px; 
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.ui.red.mini.button {
+  font-size: larger;
+  font-weight: bolder;
+  color: red !important;
 }

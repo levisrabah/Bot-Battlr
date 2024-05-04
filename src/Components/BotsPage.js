@@ -1,47 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import YourBotArmy from "./YourBotArmy";
 import BotCollection from "./BotCollection";
+import { useState, useEffect } from "react";
 
 function BotsPage() {
+  const [bots, setBots] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:8002/bots")
+      .then(response => response.json())
+      .then(setBots)
+  }, [])
 
-    const [bots, setBots] = useState([]);
+  function enlistBot(bot) {
+    console.log(bot);
+    setBots(bots.map(b => b.id === bot.id ? { ...b, army: true } : b));
+  }
 
-    function fetchData() {
-        return fetch(`http://localhost:8002/bots`)
-            .then((resp) => resp.json())
-            .then((data) => {
-                setBots(data);
-            });
-    }
-    //run fetch whenever the page loads
-    useEffect(() => {
-        fetchData();
-    }, []);
+  function removeBot(bot) {
+    console.log(bot);
+    setBots(bots.map(b => b.id === bot.id ? { ...b, army: false } : b));
+  }
 
-    //add bot to army when the bot is clicked
+  function deleteBot(bot) {
+    setBots(bots.filter(b => b.id !== bot.id))
+  }
 
-    function enlistBot(bot) {
-        setBots(bots.map((b) => (b.id === bot.id ? { ...b, army: true } : b)));
-    }
-
-    function removeBot(bot) {
-        setBots(bots.map((b) => (b.id === bot.id ? { ...b, army: false } : b)));
-    }
-
-    function deleteBot(bot) {
-        const deletedBot = bots.filter((b) => b.id !== bot.id);
-        setBots((bots) => deletedBot);
-    }
-    return (
-        <div>
-            <YourBotArmy
-                bots={bots.filter((b) => b.army)}
-                removeBot={removeBot}
-                deleteBot={deleteBot}
-            />
-            <BotCollection bots={bots} enlistBot={enlistBot} deleteBot={deleteBot} />
-        </div>
-    );
+  return (
+    <div>
+      <YourBotArmy bots={bots.filter(b => b.army)} removeBot={removeBot} deleteBot={deleteBot} />
+      <BotCollection bots={bots} enlistBot={enlistBot} deleteBot={deleteBot} />
+    </div>
+  )
 }
 
 export default BotsPage;
