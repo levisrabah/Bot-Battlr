@@ -10,6 +10,10 @@ const botTypeClasses = {
 };
 
 function BotCard({ bot, clickEvent, deleteBot }) {
+  if (!bot) {
+    return null;
+  }
+
   return (
     <div className="ui column">
       <div
@@ -18,7 +22,7 @@ function BotCard({ bot, clickEvent, deleteBot }) {
         onClick={() => clickEvent(bot)}
       >
         <div className="image">
-          <img alt="oh no!" src={bot.avatar_url} />
+          <img alt="oh no!" src={bot.avatar_url || "default_avatar.png"} />
         </div>
         <div className="content">
           <div className="header">
@@ -34,7 +38,6 @@ function BotCard({ bot, clickEvent, deleteBot }) {
             <i className="icon heartbeat" />
             {bot.health}
           </span>
-
           <span>
             <i className="icon lightning" />
             {bot.damage}
@@ -50,8 +53,7 @@ function BotCard({ bot, clickEvent, deleteBot }) {
                 onClick={(event) => {
                   event.stopPropagation();
                   deleteBot(bot);
-                }
-                }
+                }}
               >
                 x
               </button>
